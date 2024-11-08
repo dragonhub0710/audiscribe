@@ -93,12 +93,12 @@ const getGenerateBook = async (msgs, time) => {
       }
     }
 
-    // Save the book to a file
-    const fileName = `${topic.replace(/[^a-zA-Z0-9]/g, "_")}_book.txt`;
-    fs.writeFileSync(`./${fileName}`, JSON.stringify(transcription));
-
     // To generate the book id
     const bookId = generateRandomName();
+
+    // Save the book to a file
+    const fileName = `${bookId}_book.txt`;
+    fs.writeFileSync(`./${fileName}`, JSON.stringify(transcription));
 
     // // Generate individual audio files
     // const promises = transcription.map((item, idx) =>

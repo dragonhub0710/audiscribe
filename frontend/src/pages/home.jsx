@@ -136,7 +136,7 @@ export function Home() {
       </div>
       <Dialog open={isModalOpen} size="xl">
         <DialogHeader>
-          <div className="flex flex-col gap-4">
+          <div className="flex w-full flex-col items-center gap-4">
             <Typography className="text-center text-lg font-semibold">
               Could you select the time?
             </Typography>
@@ -171,13 +171,23 @@ export function Home() {
           <div className="my-5 flex w-full justify-center gap-4">
             <Button
               onClick={handleGenerateBook}
-              className="text-lg font-semibold normal-case"
+              disabled={isloading}
+              className="flex items-center text-lg font-semibold normal-case"
             >
+              {isloading && (
+                <div className="flex h-8 w-8 items-center justify-center">
+                  <Lottie
+                    options={defaultOption}
+                    isClickToPauseDisabled={true}
+                  />
+                </div>
+              )}
               Submit
             </Button>
             <Button
+              disabled={isloading}
               onClick={() => setIsModalOpen(false)}
-              className="text-lg font-semibold normal-case"
+              className="text-lg font-normal normal-case"
             >
               Cancel
             </Button>
