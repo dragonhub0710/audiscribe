@@ -18,18 +18,6 @@ exports.handleQuestions = async (req, res) => {
     transcription = await getTranscription(file.buffer);
     let data = await getResponse(JSON.parse(messages), transcription);
 
-    res.status(200).json({ data });
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
-exports.handleTest = async (req, res) => {
-  try {
-    const { messages, transcription } = req.body;
-    let data = await getResponse(JSON.parse(messages), transcription);
-
     res.status(200).json({ data, transcription });
   } catch (err) {
     console.log(err.message);
@@ -37,23 +25,10 @@ exports.handleTest = async (req, res) => {
   }
 };
 
-exports.handleGenerateBook = async (req, res) => {
+exports.handleBook = async (req, res) => {
   try {
     const { messages, time } = req.body;
     let data = await getGenerateBook(messages, time);
-
-    res.status(200).json({ data });
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
-exports.handleContent = async (req, res) => {
-  try {
-    const { messages, time } = req.body;
-
-    let data = await getResponse(JSON.parse(messages), time);
 
     res.status(200).json({ data });
   } catch (err) {

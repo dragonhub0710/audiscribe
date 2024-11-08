@@ -12,8 +12,6 @@ router.post(
   upload.single("file"),
   messageController.handleQuestions
 );
-router.post("/content", messageController.handleContent);
-router.post("/test", messageController.handleTest);
-router.post("/test/generate", messageController.handleGenerateBook);
+router.post("/book", messageController.handleBook);
 
 module.exports = router;

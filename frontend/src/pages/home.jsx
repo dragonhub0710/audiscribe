@@ -90,7 +90,7 @@ export function Home() {
   const handleGenerateBook = () => {
     setIsloading(true);
     axios
-      .post(`${import.meta.env.VITE_API_BASED_URL}/api/test/generate`, {
+      .post(`${import.meta.env.VITE_API_BASED_URL}/api/book`, {
         messages: JSON.stringify(messagesRef.current),
         time: time,
       })
