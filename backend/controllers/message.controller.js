@@ -31,10 +31,27 @@ exports.handleBook = async (req, res) => {
     let data = await getGenerateBook(messages, time);
 
     res.status(200).json({ data });
+    cleanupAudioFiles(data);
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ message: "Internal server error" });
   }
+};
+
+const cleanupAudioFiles = (bookId, delayInHours = 2) => {
+  setTimeout(async () => {
+    try {
+      // Delete final merged file
+      const finalFilePath = `./resources/${bookId}`;
+      await fs
+        .unlinkSync(finalFilePath)
+        .catch((err) => console.log(`Failed to delete ${finalFilePath}:`, err));
+
+      console.log(`Cleaned up audio files for book ${bookId}`);
+    } catch (error) {
+      console.error(`Error cleaning up audio files for book ${bookId}:`, error);
+    }
+  }, delayInHours * 60 * 60 * 1000); // Convert hours to milliseconds
 };
 
 const getGenerateBook = async (msgs, time) => {
@@ -97,8 +114,8 @@ const getGenerateBook = async (msgs, time) => {
     const bookId = generateRandomName();
 
     // Save the book to a file
-    const fileName = `${bookId}_book.txt`;
-    fs.writeFileSync(`./${fileName}`, JSON.stringify(transcription));
+    // const fileName = `${bookId}_book.txt`;
+    // fs.writeFileSync(`./${fileName}`, JSON.stringify(transcription));
 
     // // Generate individual audio files
     // const promises = transcription.map((item, idx) =>
